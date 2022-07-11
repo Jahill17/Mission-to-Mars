@@ -1,0 +1,79 @@
+import pandas as pd
+from bs4 import BeautifulSoup as soup
+
+# selenium 4
+import selenium
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+import webdriver_manager
+from webdriver_manager.chrome import ChromeDriverManager
+
+#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+import splinter
+from splinter import Browser
+
+# Set the executable path and initialize the chrome browser in splinter
+executable_path = {'executable_path': ChromeDriverManager().install()}
+browser = Browser('chrome', **executable_path, headless=False)
+import sys
+
+# Visit the mars nasa news site
+url = 'https://redplanetscience.com'
+browser.visit(url)
+
+# Optional delay for loading the page
+browser.is_element_present_by_css('div.list_text', wait_time=1)
+
+# Set up depedencies
+html = browser.html
+news_soup = soup(html, 'html.parser')
+slide_elem = news_soup.select_one('div.list_text')
+
+# Find title
+slide_elem.find('div', class_='content_title')
+
+# Use the parent element to find the first `a` tag and save it as `news_title`
+news_title = slide_elem.find('div', class_='content_title').get_text()
+news_title
+
+# Use the parent element to find the paragraph text
+news_p = slide_elem.find('div', class_='article_teaser_body').get_text()
+news_p
+
+# Visit URL
+url = 'https://spaceimages-mars.com'
+browser.visit(url)
+
+# Find and click the full image button
+full_image_elem = browser.find_by_tag('button')[1]
+full_image_elem.click()
+
+# Find then click the more info button
+# browser.is_element_present_by_text('more info', wait_time=1)
+# more_info_elem = browser.links.find_by_partial_text('more info')
+# more_info_elem.click()
+
+# Parse the resulting html with soup
+html = browser.html
+img_soup = soup(html, 'html.parser')
+
+# Find the relative image url
+img_url_rel = img_soup.find('img', class_='fancybox-image').get('src')
+img_url_rel
+
+# Use the base URL to create an absolute URL
+img_url = f'https://spaceimages-mars.com/{img_url_rel}'
+img_url
+
+# Set up a dataframe for findings
+df = pd.read_html('https://galaxyfacts-mars.com')[0]
+df.columns=['description', 'Mars', 'Earth']
+df.set_index('description', inplace=True)
+df
+
+# See dataframe in html format
+df.to_html()
+
+# Quit the entire browser session with all its tabs and windows
+browser.quit()
+
