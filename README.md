@@ -21,5 +21,5 @@ The ultimate goal is to adjust the current web app to include all four of the he
 
 ## Code Used
 - HTML script: [index.html](https://github.com/Jahill17/Mission-to-Mars/blob/main/index.html)
-- Scraping script: [scraping.py] (https://github.com/Jahill17/Mission-to-Mars/blob/main/scraping.py)
+- Scraping script: [scraping.py](https://github.com/Jahill17/Mission-to-Mars/blob/main/scraping.py)
 - App script: [app.py](https://github.com/Jahill17/Mission-to-Mars/blob/main/app.py)
