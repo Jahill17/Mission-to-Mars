@@ -15,9 +15,10 @@ The ultimate goal is to adjust the current web app to include all four of the he
 - Splinter
 - ChromeDriverManager
 - Flask
+- Bootstrap 3
 
 ## Summary / Results
-
+See the codes used and challenge file.
 
 ## Code Used
 - HTML script: [index.html](https://github.com/Jahill17/Mission-to-Mars/blob/main/index.html)
