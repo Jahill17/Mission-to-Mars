@@ -12,6 +12,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import splinter
 from splinter import Browser
 import sys
+import datetime as dt
 
 def scrape_all():
     # Initiate headless driver for deployment
@@ -105,7 +106,7 @@ def mars_facts():
 
 if __name__ == "__main__":
 
-    # If running as script, print scraped data
+#     # If running as script, print scraped data
     print(scrape_all())
 
 
